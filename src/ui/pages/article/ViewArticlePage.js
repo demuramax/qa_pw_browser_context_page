@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { test, expect } from '@playwright/test';
 
 export class ViewArticlePage {
