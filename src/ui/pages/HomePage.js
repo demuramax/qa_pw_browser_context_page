@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { expect, test } from '@playwright/test';
 
 export class HomePage {
@@ -20,10 +21,21 @@ export class HomePage {
     }); 
   }
 
+  articleCard(title) {
+    return this.page.locator(".article-preview").filter({ hasText: `Article title: ${title}` });
+  }
+
   async assertGlobalFeedIsSelected() {
     await test.step(`Assert the 'Global Feed' tab is selected`, async () => {
       await expect(this.globalFeedTab).toHaveClass(/active/);
     });
+  }
+
+  async assertArticleInGlobalFeedIsVisible(articleTitle, authorName) {
+    await test.step(`Assert the article with title '${articleTitle}' by ${authorName} is visible in the global feed`, async () => {
+      await expect(this.articleCard(articleTitle)).toBeVisible();
+      await expect(this.articleCard(articleTitle).getByRole('link', { name: authorName })).toBeVisible();
+    });  
   }
 
 
