@@ -6,11 +6,11 @@ export class ViewArticlePage {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
     this.favoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
-    this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
+    this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Unfavorite Article'}).first();
   }
 
   authorLinkInArticleHeader(username) {
-    return this.page.getByRole('link', { username }).first();
+    return this.page.getByRole('link', {name: username }).first();
   }
 
   url() {
