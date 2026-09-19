@@ -5,6 +5,8 @@ export class ViewArticlePage {
   constructor(page) {
     this.page = page;
     this.articleTitleHeader = page.getByRole('heading');
+    this.favoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
+    this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
   }
 
   authorLinkInArticleHeader(username) {
@@ -21,6 +23,13 @@ export class ViewArticlePage {
     });
   }
 
+  async followArticle() {
+    await test.step(`Click Favorite Article button`, async () => {
+      await this.favoriteArticleButton.click();
+    });
+  }
+
+
   async assertArticleTitleIsVisible(title) {
     await test.step(`Assert the article has correct title`, async () => {
       await expect(this.articleTitleHeader).toContainText(title);
@@ -36,6 +45,12 @@ export class ViewArticlePage {
   async assertArticleAuthorNameIsVisible(username) {
     await test.step(`Assert the article has correct author username`, async () => {
       await expect(this.authorLinkInArticleHeader(username)).toBeVisible();
+    });
+  }
+
+  async assertUnfollowButtonIsVisible() {
+    await test.step(`Assert Unfavorite (unfollow) Article button is visible`, async () => {
+      await expect(this.unfavoriteArticleButton).toBeVisible();
     });
   }
 }
