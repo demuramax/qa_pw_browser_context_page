@@ -2,6 +2,7 @@ import { test } from '../../_fixtures/fixtures';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
+import { ProfilePage } from '../../../src/ui/pages/profile/ProfilePage';
 
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
   await signUpUser(page1, user1);
@@ -13,9 +14,11 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 test('Follow the article created by another user', async ({
   page2,
   user1,
+  user2,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
+  const profilePage = new ProfilePage(page2)
 
   await viewArticlePage.open(articleWithoutTags.url);
 
@@ -25,4 +28,10 @@ test('Follow the article created by another user', async ({
 
   await viewArticlePage.followArticle();
   await viewArticlePage.assertUnfollowButtonIsVisible();
+
+  await viewArticlePage.goToProfile();
+  await profilePage.assertProfileIsVisible((user2.username).toLowerCase());
+  await profilePage.goToFavoritePosts();
+  await profilePage.assertFavoritePostsTabIsSelected();
+  
 });

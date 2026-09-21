@@ -7,6 +7,7 @@ export class ViewArticlePage {
     this.articleTitleHeader = page.getByRole('heading');
     this.favoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
     this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Unfavorite Article'}).first();
+    this.profileLink = page.getByRole('link', { name: 'your profile image' });
   }
 
   authorLinkInArticleHeader(username) {
@@ -27,6 +28,12 @@ export class ViewArticlePage {
     await test.step(`Click Favorite Article button`, async () => {
       await this.favoriteArticleButton.click();
     });
+  }
+
+  async goToProfile() {
+    await test.step(`Go to profile link in the header`, async () => {
+      await this.profileLink.click();
+    })
   }
 
 
