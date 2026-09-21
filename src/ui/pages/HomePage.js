@@ -31,7 +31,7 @@ export class HomePage {
     });
   }
 
-  async assertArticleInGlobalFeedIsVisible(articleTitle, authorName) {
+  async assertArticleInFeedIsVisible(articleTitle, authorName) {
     await test.step(`Assert the article with title '${articleTitle}' by ${authorName} is visible in the global feed`, async () => {
       await expect(this.articleCard(articleTitle)).toBeVisible();
       await expect(this.articleCard(articleTitle).getByRole('link', { name: authorName })).toBeVisible();
