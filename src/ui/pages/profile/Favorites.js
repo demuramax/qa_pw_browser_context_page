@@ -16,7 +16,7 @@ export class Favorites extends HomePage {
 
   async reload() {
     await test.step(`Reload the Favorites page`, async () => {
-      await this.page.reload();
+      await this.page.reload({ waitUntil: 'domcontentloaded' });
     })
   }
 
