@@ -7,6 +7,8 @@ export class HomePage {
     this.yourFeedTab = page.getByText('Your Feed');
     this.globalFeedTab = page.getByText('Global Feed', { exact: true });
     this.newArticleLink = page.getByRole('link', { name: 'New Article' });
+    this.settingsLink = page.getByRole('link', { name: '  Settings' });
+    this.homePageLink = page.getByRole('link', { name: 'Home' });
   }
 
   async clickNewArticleLink() {
@@ -15,10 +17,23 @@ export class HomePage {
     });
   } 
 
+  async clickHomePageLink() {
+    await test.step(`Click the 'Home Page' link`, async () => {
+      await this.homePageLink.click();
+      await this.page.reload();
+    });
+  } 
+
   async clickGlobalFeedTab() {
     await test.step(`Click the 'Global Feed' tab`, async () => {
       await this.globalFeedTab.click();
     }); 
+  }
+
+  async goToSettings() {
+    await test.step(`Go to Settings link`, async () => {
+      await this.settingsLink.click();
+    });
   }
 
   articleCard(title) {
@@ -44,4 +59,5 @@ export class HomePage {
       await expect(this.yourFeedTab).toBeVisible();
     });
   }
+
 }
