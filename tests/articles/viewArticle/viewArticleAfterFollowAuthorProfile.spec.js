@@ -3,7 +3,6 @@ import { test } from '../../_fixtures/fixtures';
 import { ViewArticlePage } from '../../../src/ui/pages/article/ViewArticlePage';
 import { createArticle } from '../../../src/ui/actions/articles/createArticle';
 import { signUpUser } from '../../../src/ui/actions/auth/signUpUser';
-import { ProfilePage } from '../../../src/ui/pages/profile/ProfilePage';
 import { Favorites } from '../../../src/ui/pages/profile/Favorites';
 
 test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
@@ -16,11 +15,9 @@ test.beforeEach(async ({ page1, page2, user1, user2, articleWithoutTags }) => {
 test('Follow the article created by another user', async ({
   page2,
   user1,
-  user2,
   articleWithoutTags,
 }) => {
   const viewArticlePage = new ViewArticlePage(page2);
-  const profilePage = new ProfilePage(page2);
   const favoritesPage = new Favorites(page2);
 
   await viewArticlePage.open(articleWithoutTags.url);
@@ -31,7 +28,7 @@ test('Follow the article created by another user', async ({
 
   await viewArticlePage.followAuthorProfile(user1.username);
   await viewArticlePage.goToHomeLink();
-  
+
   await favoritesPage.assertArticleInFeedIsVisible(articleWithoutTags.title, user1.username);
   
 });
