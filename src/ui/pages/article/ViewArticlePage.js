@@ -8,6 +8,7 @@ export class ViewArticlePage {
     this.favoriteArticleButton = page.getByRole('button').filter({ hasText: 'Favorite Article'}).first();
     this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Unfavorite Article'}).first();
     this.profileLink = page.getByRole('link', { name: 'your profile image' });
+    this.editArticleButton = page.getByRole('link', { name: ' Edit Article' }).first();
   }
 
   authorLinkInArticleHeader(username) {
@@ -36,6 +37,11 @@ export class ViewArticlePage {
     })
   }
 
+  async clickEditArticleButton() {
+    await test.step(`Click on Edit Article Button`, async () => {
+      await this.editArticleButton.click();
+    });
+  }
 
   async assertArticleTitleIsVisible(title) {
     await test.step(`Assert the article has correct title`, async () => {
