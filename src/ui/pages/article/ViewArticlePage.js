@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 /* eslint-disable max-len */
 import { test, expect } from '@playwright/test';
 
@@ -9,10 +10,15 @@ export class ViewArticlePage {
     this.unfavoriteArticleButton = page.getByRole('button').filter({ hasText: 'Unfavorite Article'}).first();
     this.profileLink = page.getByRole('link', { name: 'your profile image' });
     this.editArticleButton = page.getByRole('link', { name: ' Edit Article' }).first();
+    this.homeLink = page.getByRole('link', { name: 'Home' });
   }
 
   authorLinkInArticleHeader(username) {
     return this.page.getByRole('link', {name: username }).first();
+  }
+
+  authorFollowHeaderButton(username) { 
+    return this.page.getByRole('button', { name: `   Follow ${username}` }).first()
   }
 
   url() {
@@ -31,9 +37,21 @@ export class ViewArticlePage {
     });
   }
 
+  async followAuthorProfile(username) {
+    await test.step(`Click Follow ${username} profile in the header`, async () => {
+      await this.authorFollowHeaderButton(username).click();
+    } )
+  }
+
   async goToProfile() {
     await test.step(`Go to profile link in the header`, async () => {
       await this.profileLink.click();
+    })
+  }
+
+  async goToHomeLink() {
+    await test.step(`Go to Home link in the header`, async () => {
+      await this.homeLink.click();
     })
   }
 
