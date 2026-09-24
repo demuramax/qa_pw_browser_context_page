@@ -20,8 +20,7 @@ test('User can see own article in the global feed when not logged in', async ({
   const viewArticlePage = new ViewArticlePage(page2);
   
   await viewArticlePage.open(articleWithoutTags.url);
-  // await homePage.goToSettings();
-  // await homePage.clickLogoutButton();
+
   await homePage.clickHomePageLink();
   await homePage.clickGlobalFeedTab();
   await homePage.clickHomePageLink();
