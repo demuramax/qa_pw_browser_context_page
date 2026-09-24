@@ -45,25 +45,25 @@ export class ViewArticlePage {
   async followAuthorProfile(username) {
     await test.step(`Click Follow ${username} profile in the header`, async () => {
       await this.authorFollowHeaderButton(username).click();
-    } )
+    });
   }
 
   async unfollowAuthorProfile(username) {
     await test.step(`Click Unfollow ${username} profile in the header`, async () => {
       await this.authorUnfollowHeaderButton(username).click();
-  } )
+  });
 }
 
   async goToProfile() {
     await test.step(`Go to profile link in the header`, async () => {
       await this.profileLink.click();
-    })
+    });
   }
 
   async goToHomeLink() {
     await test.step(`Go to Home link in the header`, async () => {
       await this.homeLink.click();
-    })
+    });
   }
 
   async clickEditArticleButton() {
@@ -99,7 +99,7 @@ export class ViewArticlePage {
   async assertNoArticlesInTheFeed() {
     await test.step( `Assert there are no articles in the feed`, async () => {
       await expect(this.noArticlesInTheFeed).toBeVisible();
-    })
+    });
   }
 
 }
