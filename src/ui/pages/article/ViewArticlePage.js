@@ -11,6 +11,7 @@ export class ViewArticlePage {
     this.profileLink = page.getByRole('link', { name: 'your profile image' });
     this.editArticleButton = page.getByRole('link', { name: ' Edit Article' }).first();
     this.homeLink = page.getByRole('link', { name: 'Home' });
+    this.noArticlesInTheFeed = page.getByText('No articles are here... yet.');
   }
 
   authorLinkInArticleHeader(username) {
@@ -19,6 +20,10 @@ export class ViewArticlePage {
 
   authorFollowHeaderButton(username) { 
     return this.page.getByRole('button', { name: `   Follow ${username}` }).first()
+  }
+
+  authorUnfollowHeaderButton(username) { 
+    return this.page.getByRole('button', { name: `   Unfollow ${username}` }).first()
   }
 
   url() {
@@ -42,6 +47,12 @@ export class ViewArticlePage {
       await this.authorFollowHeaderButton(username).click();
     } )
   }
+
+  async unfollowAuthorProfile(username) {
+    await test.step(`Click Unfollow ${username} profile in the header`, async () => {
+      await this.authorUnfollowHeaderButton(username).click();
+  } )
+}
 
   async goToProfile() {
     await test.step(`Go to profile link in the header`, async () => {
@@ -84,4 +95,11 @@ export class ViewArticlePage {
       await expect(this.unfavoriteArticleButton).toBeVisible();
     });
   }
+
+  async assertNoArticlesInTheFeed() {
+    await test.step( `Assert there are no articles in the feed`, async () => {
+      await expect(this.noArticlesInTheFeed).toBeVisible();
+    })
+  }
+
 }
